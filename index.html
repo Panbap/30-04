@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>30-04</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .image-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        #bg-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .tank-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .moving-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 110%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            animation: moveImage 10s linear forwards;
+            animation-delay: -0.2s;
+            
+        }
+
+        .tank {
+            position: absolute;
+            bottom: 20px;
+            width: 100px;
+            height: 100px;
+            background-size: cover;
+            animation: moveTank 10s linear forwards, changeImage 10s steps(4) infinite;
+        }
+
+        @keyframes moveTank {
+            0% {
+                left: -150px;
+            }
+
+            100% {
+                left: 100%;
+            }
+        }
+
+        @keyframes moveImage {
+            0% {
+                left: -150px;
+            }
+
+            100% {
+                left: 100%;
+            }
+        }
+
+        @keyframes changeImage {
+            0% {
+                background-image: url('./tank2.png');
+            }
+
+            25% {
+                background-image: url('./tank1.png');
+            }
+
+            50% {
+                background-image: url('./tank2.png');
+            }
+
+            75% {
+                background-image: url('./tank1.png');
+            }
+
+            100% {
+                background-image: url('./tank2.png');
+            }
+        }
+
+        .led-board {
+            display: grid;
+            grid-template-columns: repeat(50, 1fr); 
+            grid-template-rows: repeat(20, 1fr);   
+            gap: 1px;
+            width: 100%; 
+            height: 100%; 
+            background-image: url('https://s3.cloud.cmctelecom.vn/tinhte2/2020/05/5007015_chien_tranh_viet_nam-04.jpg');
+            padding: 5px;
+            position: relative;
+            background-size: auto 100%; 
+            background-repeat: repeat-x;
+            background-position: center;
+        }
+
+        .led-cell {
+            background-color: #2c2c2c62;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        
+    </style>
+</head>
+
+<body>
+
+    <div class="image-background ">
+        <video autoplay muted loop id="bg-video">
+            <source src="https://template.canva.com/EAF_1wlg4GU/2/document_1440w-iE-AMTRxaYg.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <div class="tank-container">
+        <div class="moving-image">
+            <div class="led-board" id="led-board">
+
+            </div>
+        </div>
+        <div class="tank"></div>
+    </div>
+
+    <script>const board = document.getElementById('led-board');
+        const rows = 20;
+        const cols = 50;
+        
+        for (let i = 0; i < rows * cols; i++) {
+            const cell = document.createElement('div');
+            cell.classList.add('led-cell');
+            board.appendChild(cell);
+        }
+        
+    </script>
+</body>
+
+</html>
